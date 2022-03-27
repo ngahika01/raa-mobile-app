@@ -9,18 +9,18 @@ export const roles = [
   },
 ];
 
-export const services =[
+export const services = [
   {
     label: "Oil Change and Oil Filter Replacement",
     value: "Oil Change and Oil Filter Replacement",
   },
   {
-    label: "Windshield Wipers and Fluid",
-    value: "Windshield Wipers and Fluid",
+    label: "Windshield Wipers & Fluid",
+    value: "Windshield Wipers & Fluid",
   },
   {
-    label: "Air and Cabin Filter Replacement",
-    value: "Air and Cabin Filter Replacement",
+    label: "Air & Cabin Filter Replacement",
+    value: "Air & Cabin Filter Replacement",
   },
   {
     label: "Scheduled Maintenance",
@@ -35,8 +35,8 @@ export const services =[
     value: "Battery Replacement",
   },
   {
-    label: "Wheel Balance and Rotation",
-    value: "Wheel Balance and Rotation",
+    label: "Wheel Balance & Rotation",
+    value: "Wheel Balance & Rotation",
   },
   {
     label: "Coolant System Services",
@@ -47,4 +47,3 @@ export const services =[
     value: "Brake Repair",
   },
 ];
-

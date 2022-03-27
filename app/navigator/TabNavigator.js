@@ -6,6 +6,7 @@ import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { theme } from "../config/theme";
 import FeedNav from "./FeedNavigator";
+import HomeNav from "./HomeNav";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -21,7 +22,7 @@ export default function MyTabs() {
     >
       <Tab.Screen
         name="myhome"
-        component={HomeScreen}
+        component={HomeNav}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
@@ -29,7 +30,7 @@ export default function MyTabs() {
           ),
         }}
       />
-     
+
       <Tab.Screen
         name="profile"
         component={FeedNav}

@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Button,
   Card,
+  HelperText,
   Paragraph,
   Subheading,
   Text,
@@ -84,6 +85,7 @@ const HomeScreen = () => {
       </Map>
       {item && (
         <Card
+          onPress={() => navigation.navigate("shopDetails", { shop: item })}
           style={{
             position: "absolute",
             bottom: 20,
@@ -91,8 +93,13 @@ const HomeScreen = () => {
             backgroundColor: colors.background,
             borderRadius: 10,
             elevation: 10,
+            right: 20,
+            left: 20,
           }}
         >
+          <HelperText type="error">
+            Click to book appointment now
+          </HelperText>
           <Card.Content
             style={{
               display: "flex",
@@ -122,7 +129,12 @@ const HomeScreen = () => {
 
                 <Title>Services:</Title>
 
-                <Paragraph>{item?.services}</Paragraph>
+                <Paragraph>
+                  {
+                    // break where there is a comma in the string
+                    item?.services.split(",").join("\n")
+                  }
+                </Paragraph>
               </View>
             </Card.Actions>
           </Card.Content>
