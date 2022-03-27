@@ -4,7 +4,14 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import persistReducer from "redux-persist/es/persistReducer";
+import { userGetDetailsReducer, userLoginReducer, userRegisterReducer,userUpdateReducer } from "./app/reducers/userReducers";
 const reducer = combineReducers({
+  userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
+  userGetDetails: userGetDetailsReducer,
+  userUpdate: userUpdateReducer,
+  
+  
 
 });
 const persistConfig = {
