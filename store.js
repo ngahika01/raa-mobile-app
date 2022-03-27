@@ -11,12 +11,18 @@ import {
   userUpdateReducer,
 } from "./app/reducers/userReducers";
 import { saveLocationReducer } from "./app/reducers/locationReducers";
+import { createShopReducer, deleteShopReducer, getShopDetailsReducer, getShopReducer, updateShopReducer } from "./app/reducers/shopReducers";
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userGetDetails: userGetDetailsReducer,
   userUpdate: userUpdateReducer,
   locationSave: saveLocationReducer,
+  shopCreate: createShopReducer,
+  shopDelete: deleteShopReducer,
+  shopUpdate: updateShopReducer,
+  shopGet: getShopReducer,
+  shopDetails: getShopDetailsReducer,
 });
 const persistConfig = {
   key: "root",
