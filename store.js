@@ -4,15 +4,19 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import persistReducer from "redux-persist/es/persistReducer";
-import { userGetDetailsReducer, userLoginReducer, userRegisterReducer,userUpdateReducer } from "./app/reducers/userReducers";
+import {
+  userGetDetailsReducer,
+  userLoginReducer,
+  userRegisterReducer,
+  userUpdateReducer,
+} from "./app/reducers/userReducers";
+import { saveLocationReducer } from "./app/reducers/locationReducers";
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userGetDetails: userGetDetailsReducer,
   userUpdate: userUpdateReducer,
-  
-  
-
+  saveLocation: saveLocationReducer,
 });
 const persistConfig = {
   key: "root",

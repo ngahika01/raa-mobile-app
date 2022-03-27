@@ -30,6 +30,7 @@ const CreateShop = () => {
         <Map >
             <MapView.Marker
             
+            
             />
         </Map>
       </View>
