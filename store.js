@@ -16,7 +16,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userGetDetails: userGetDetailsReducer,
   userUpdate: userUpdateReducer,
-  saveLocation: saveLocationReducer,
+  locationSave: saveLocationReducer,
 });
 const persistConfig = {
   key: "root",
