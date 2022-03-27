@@ -8,6 +8,7 @@ import InputComponent from "../components/form/InputComponent";
 import DropDownComponent from "./DropDownComponent";
 import { roles } from "../data/data";
 import { Link } from "@react-navigation/native";
+import SubmitButton from "../components/form/SubmitButton";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -18,14 +19,15 @@ const validationSchema = Yup.object().shape({
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
-  role: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
+
 });
 
 const LoginScreen = () => {
   const { colors } = useTheme();
+
+  const handleSubmit = async ({ name, password, role }) => {
+    console.log(`name: ${name}, password: ${password}, role: ${role}`);
+  };
   return (
     <SafeAreaView
       style={{
@@ -56,6 +58,7 @@ const LoginScreen = () => {
               height: 300,
               alignSelf: "center",
               resizeMode: "contain",
+              borderRadius: 10,
             }}
           />
           <Form
@@ -64,6 +67,8 @@ const LoginScreen = () => {
               password: "",
               role: "",
             }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
           >
             <View
               style={{
@@ -77,7 +82,17 @@ const LoginScreen = () => {
                 secureTextEntry={false}
               />
               <InputComponent label={"password"} keyboardType={"default"} />
-              <View>
+              <SubmitButton
+                color={colors.accent}
+                textColor={colors.primary}
+                value={"Login"}
+                icon={"login"}
+              />
+              <View
+                style={{
+                  marginTop: 10,
+                }}
+              >
                 <Link
                   style={{
                     color: colors.primary,

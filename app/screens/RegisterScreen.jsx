@@ -8,24 +8,30 @@ import InputComponent from "../components/form/InputComponent";
 import DropDownComponent from "./DropDownComponent";
 import { roles } from "../data/data";
 import { Link } from "@react-navigation/native";
+import SubmitButton from "../components/form/SubmitButton";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
-    .required("Required"),
+    .required("Name is required"),
   password: Yup.string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
-    .required("Required"),
+    .required("Password is required"),
   role: Yup.string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
-    .required("Required"),
+    .required("Role is required"),
 });
 
 const RegisterScreen = () => {
   const { colors } = useTheme();
+
+  const handleSubmit = async ({ name, password, role }) => {
+    console.log(`name: ${name}, password: ${password}, role: ${role}`);
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -46,7 +52,7 @@ const RegisterScreen = () => {
       <View
         style={{
           flex: 1,
-          justifyContent:"center"
+          justifyContent: "center",
         }}
       >
         <Image
@@ -56,6 +62,7 @@ const RegisterScreen = () => {
             height: 300,
             alignSelf: "center",
             resizeMode: "contain",
+            borderRadius: 10,
           }}
         />
         <Form
@@ -64,6 +71,8 @@ const RegisterScreen = () => {
             password: "",
             role: "",
           }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
         >
           <View
             style={{
@@ -78,10 +87,19 @@ const RegisterScreen = () => {
             />
             <InputComponent label={"password"} keyboardType={"default"} />
             <DropDownComponent items={roles} label={"role"} />
-            <Link style={{
-              color: colors.primary,
-            }} to={"/login"}>
-               Have an account?{" "}
+            <SubmitButton
+              value={`Sign up`}
+              textColor={colors.primary}
+              color={colors.accent}
+              icon={"login"}
+            />
+            <Link
+              style={{
+                color: colors.primary,
+              }}
+              to={"/login"}
+            >
+              Have an account?{" "}
               <Text
                 style={{
                   textDecorationLine: "underline",
