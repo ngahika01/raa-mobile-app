@@ -4,8 +4,11 @@ import DropDown from "react-native-paper-dropdown";
 import { useFormikContext } from "formik";
 import { HelperText, useTheme } from "react-native-paper";
 
-const DropDownComponent = ({ label, items, ...otherProps }) => {
+const MultiSelectComponent = ({ label, items, ...otherProps }) => {
   const [showDropDown, setShowDropDown] = useState(false);
+    const [showMultiSelectDropDown, setShowMultiSelectDropDown] =
+      useState(false);
+
 
   const { setFieldValue, values, setFieldTouched, touched, errors } =
     useFormikContext();
@@ -19,17 +22,18 @@ const DropDownComponent = ({ label, items, ...otherProps }) => {
         dropDownItemTextStyle={{
           color: colors.accent,
         }}
+        multiSelect={true}
         label={label}
         value={values[label]}
         mode={"outlined"}
-        visible={showDropDown}
-        showDropDown={() => setShowDropDown(true)}
-        onDismiss={() => setShowDropDown(false)}
+        visible={showMultiSelectDropDown}
+        showDropDown={() => setShowMultiSelectDropDown(true)}
+        onDismiss={() => setShowMultiSelectDropDown(false)}
         setValue={(value) => {
           //set field value to value or id of each role
           setFieldValue(label, value);
           console.log(value, "value");
-          setShowDropDown(false);
+          setShowMultiSelectDropDown(false);
         }}
         list={items}
       />
@@ -43,6 +47,6 @@ const DropDownComponent = ({ label, items, ...otherProps }) => {
   );
 };
 
-export default DropDownComponent;
+export default MultiSelectComponent;
 
 const styles = StyleSheet.create({});

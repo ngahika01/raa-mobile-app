@@ -9,13 +9,18 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useRef } from "react";
 import ZoomComponnents from "./ZoomComponents";
+import { saveLocation } from "../actions/locationActions";
 
 const Map = ({ children, latD, lngD, datLat, dataLng, ...otherProps }) => {
   const map = useRef(null);
   const location = useLocation();
   const dispatch = useDispatch();
+  const locationSave = useSelector((state) => state.locationSave);
+  const {place} = locationSave;
 
-  console.log(location);
+
+
+  // console.log(location);
   const [loc, setLoc] = useState({
     latitude: -1.0912 || location.latitude || datLat,
     longitude: 37.0117 || location.longitude || dataLng,
@@ -37,7 +42,10 @@ const Map = ({ children, latD, lngD, datLat, dataLng, ...otherProps }) => {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       });
+      dispatch(saveLocation(location));
     }
+
+
     if (datLat && dataLng) {
       map?.current?.animateToRegion({
         latitude: datLat,
