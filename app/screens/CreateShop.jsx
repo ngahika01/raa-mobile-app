@@ -20,35 +20,61 @@ import { useNavigation } from "@react-navigation/native";
 import Map from "../components/Map";
 import MapView, { Marker } from "react-native-maps";
 import * as Yup from "yup";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Form from "../components/form/Form";
 import InputComponent from "../components/form/InputComponent";
 import SubmitButton from "../components/form/SubmitButton";
 import MultiSelectComponent from "./MultiSelectComponent";
 import { services } from "../data/data";
 import ImagePickerComponent from "../components/form/ImagePickerComponent";
+import { createShop } from "../actions/shopActions";
+import { useEffect } from "react";
+import { SHOP_CREATE_RESET } from "../constants/shopConstants";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
-  location: Yup.string().required("Location is required"),
   image: Yup.string().required("Image is required"),
-  services: Yup.object().required("Services is required"),
+  services: Yup.string().required("Services is required"),
   phoneNumber: Yup.string()
     .required("Phone number is required")
-    // valid phone number
-    .matches(
-      /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/,
-      "Phone number is not valid"
-    ),
+    .matches(/^[0-9]{10}$/, "Phone number is not valid"),
 });
 
 const CreateShop = () => {
   const locationSave = useSelector((state) => state.locationSave);
   const { place } = locationSave;
+  const [loc, setLoc] = React.useState();
   const [visible, setVisible] = React.useState(false);
 
   const { colors } = useTheme();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const shopCreate = useSelector((state) => state.shopCreate);
+  const { loading, error, success } = shopCreate;
+
+  useEffect(() => {
+    if (success) {
+      navigation.navigate("home");
+      dispatch({
+        type: SHOP_CREATE_RESET,
+      });
+    }
+  }, [success, navigation, dispatch]);
+  if (error) {
+    alert(error);
+  }
+
+  const handleSubmit = ({ name, image, services, phoneNumber }) => {
+    dispatch(
+      createShop({
+        name,
+        image,
+        services,
+        phoneNumber,
+        location: loc,
+      })
+    );
+  };
   return (
     <SafeAreaView
       style={{
@@ -71,6 +97,10 @@ const CreateShop = () => {
             draggable
             onDragEnd={(e) => {
               setVisible(true);
+              setLoc({
+                latitude: e.nativeEvent.coordinate.latitude,
+                longitude: e.nativeEvent.coordinate.longitude,
+              });
             }}
             coordinate={{
               latitude: place.latitude,
@@ -98,10 +128,10 @@ const CreateShop = () => {
             </Title>
             <KeyboardAvoidingView>
               <Form
+                onSubmit={handleSubmit}
                 validationSchema={validationSchema}
                 initialValues={{
                   name: "",
-                  location: "",
                   image: "",
                   services: "",
                   phoneNumber: "",
@@ -118,6 +148,7 @@ const CreateShop = () => {
                   keyboardType={"default"}
                   label="location"
                   secureTextEntry={false}
+                  value={loc?.latitude + "," + loc?.longitude}
                 />
                 <ImagePickerComponent />
                 <InputComponent

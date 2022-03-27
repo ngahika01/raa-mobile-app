@@ -47,18 +47,17 @@ const ProfileScreen = () => {
           <Title>Role : {userInfo.role} </Title>
         </Card.Content>
       </Card>
-      <List.Item
-        style={{
-          backgroundColor: colors.accent,
-          margin: 10,
-        }}
-        title="Create shop"
-        onPress={() => navigation.navigate("shop")}
-        
-
-        
-        right={() => <List.Icon icon="plus" />}
-      />
+      {userInfo.role === "mechanic" && (
+        <List.Item
+          style={{
+            backgroundColor: colors.accent,
+            margin: 10,
+          }}
+          title="Create shop"
+          onPress={() => navigation.navigate("shop")}
+          right={() => <List.Icon icon="plus" />}
+        />
+      )}
       <List.Item
         style={{
           backgroundColor: colors.accent,
@@ -71,7 +70,6 @@ const ProfileScreen = () => {
             index: 0,
             routes: [{ name: "login" }],
           });
-
         }}
         right={() => <List.Icon icon="logout" />}
       />

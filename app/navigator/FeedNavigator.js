@@ -5,6 +5,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import LoginScreen from "../screens/LoginScreen";
 import CreateShop from "../screens/CreateShop";
 import ProfileScreen from "../screens/ProfileScreen";
+import MyTabs from "./TabNavigator";
+import HomeScreen from "../screens/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 const FeedNav = () => {
@@ -21,6 +23,11 @@ const FeedNav = () => {
           name="shop"
           options={{ headerShown: false }}
           component={CreateShop}
+        />
+        <Stack.Screen
+          name="home"
+          options={{ headerShown: false }}
+          component={HomeScreen}
         />
       </Stack.Navigator>
     </SafeAreaProvider>

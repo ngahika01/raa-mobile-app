@@ -117,7 +117,7 @@ export const createShopReducer = (state = {}, action) => {
                         return {
                             ...state,
                             loading: false,
-                            shop: action.payload,
+                            shops: action.payload,
                         };
                         case SHOP_DETAILS_FAIL:
                         return {

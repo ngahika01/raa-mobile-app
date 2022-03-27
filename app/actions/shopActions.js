@@ -31,7 +31,7 @@ export const createShop = (shop) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.post(`${url}/shop/`, shop, config);
+    const { data } = await axios.post(`${url}/shops/`, shop, config);
     dispatch({
       type: SHOP_CREATE_SUCCESS,
       payload: data,
@@ -47,7 +47,7 @@ export const createShop = (shop) => async (dispatch, getState) => {
   }
 };
 
-export const listShops = (shop) => async (dispatch, getState) => {
+export const listShops = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: SHOP_DETAILS_REQUEST,
@@ -60,7 +60,7 @@ export const listShops = (shop) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.get(`${url}/shop`, config);
+    const { data } = await axios.get(`${url}/shops`, config);
     dispatch({
       type: SHOP_DETAILS_SUCCESS,
       payload: data,
@@ -89,7 +89,7 @@ export const getShop = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.get(`${url}/shop/${id}`, config);
+    const { data } = await axios.get(`${url}/shops/${id}`, config);
     dispatch({
       type: SHOP_GET_SUCCESS,
       payload: data,
@@ -118,7 +118,7 @@ export const updateShop = (shop) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.put(`${url}/shop/${shop._id}`, shop, config);
+    const { data } = await axios.put(`${url}/shops/${shop._id}`, shop, config);
     dispatch({
       type: SHOP_UPDATE_SUCCESS,
       payload: data,
@@ -147,7 +147,7 @@ export const deleteShop = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    await axios.delete(`${url}/shop/${id}`, config);
+    await axios.delete(`${url}/shops/${id}`, config);
     dispatch({
       type: SHOP_DELETE_SUCCESS,
     });
