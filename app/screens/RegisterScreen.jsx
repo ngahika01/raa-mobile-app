@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, ScrollView } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Appbar, Text, useTheme } from "react-native-paper";
@@ -7,8 +7,12 @@ import Form from "../components/form/Form";
 import InputComponent from "../components/form/InputComponent";
 import DropDownComponent from "./DropDownComponent";
 import { roles } from "../data/data";
-import { Link } from "@react-navigation/native";
+import { Link, useNavigation } from "@react-navigation/native";
 import SubmitButton from "../components/form/SubmitButton";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../actions/userActions";
+import { useEffect } from "react";
+import { USER_CREATE_RESET } from "../constants/userConstants";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -27,9 +31,38 @@ const validationSchema = Yup.object().shape({
 
 const RegisterScreen = () => {
   const { colors } = useTheme();
+  const dispatch = useDispatch();
+
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, error, userInfo, success } = userRegister;
+  const navigation = useNavigation();
+
+  console.log(error);
+  useEffect(() => {
+    if (success && userInfo && userInfo.role === "mechanic") {
+      navigation.navigate("shop");
+      dispatch({
+        type: USER_CREATE_RESET,
+      });
+    }
+    if(success && userInfo && userInfo.role === "driver"){
+      navigation.navigate("home");
+      dispatch({
+        type: USER_CREATE_RESET,
+      });
+    }
+
+    
+  }, [success, navigation, userInfo]);
 
   const handleSubmit = async ({ name, password, role }) => {
-    console.log(`name: ${name}, password: ${password}, role: ${role}`);
+    dispatch(
+      register({
+        name,
+        password,
+        role,
+      })
+    );
   };
 
   return (
@@ -49,68 +82,70 @@ const RegisterScreen = () => {
           }}
         />
       </Appbar>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-        }}
-      >
-        <Image
-          source={require("../assets/undraw_Account_re_o7id.png")}
+      <ScrollView>
+        <View
           style={{
-            width: "90%",
-            height: 300,
-            alignSelf: "center",
-            resizeMode: "contain",
-            borderRadius: 10,
+            flex: 1,
+            justifyContent: "center",
           }}
-        />
-        <Form
-          initialValues={{
-            name: "",
-            password: "",
-            role: "",
-          }}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
         >
-          <View
+          <Image
+            source={require("../assets/undraw_Account_re_o7id.png")}
             style={{
-              flex: 1,
-              padding: 10,
+              width: "90%",
+              height: 300,
+              alignSelf: "center",
+              resizeMode: "contain",
+              borderRadius: 10,
             }}
+          />
+          <Form
+            initialValues={{
+              name: "",
+              password: "",
+              role: "",
+            }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
           >
-            <InputComponent
-              label={"name"}
-              keyboardType={"default"}
-              secureTextEntry={false}
-            />
-            <InputComponent label={"password"} keyboardType={"default"} />
-            <DropDownComponent items={roles} label={"role"} />
-            <SubmitButton
-              value={`Sign up`}
-              textColor={colors.primary}
-              color={colors.accent}
-              icon={"login"}
-            />
-            <Link
+            <View
               style={{
-                color: colors.primary,
+                flex: 1,
+                padding: 10,
               }}
-              to={"/login"}
             >
-              Have an account?{" "}
-              <Text
+              <InputComponent
+                label={"name"}
+                keyboardType={"default"}
+                secureTextEntry={false}
+              />
+              <InputComponent label={"password"} keyboardType={"default"} />
+              <DropDownComponent items={roles} label={"role"} />
+              <SubmitButton
+                value={`Sign up`}
+                textColor={colors.primary}
+                color={colors.accent}
+                icon={"login"}
+              />
+              <Link
                 style={{
-                  textDecorationLine: "underline",
+                  color: colors.primary,
                 }}
+                to={"/login"}
               >
-                Login
-              </Text>
-            </Link>
-          </View>
-        </Form>
-      </View>
+                Have an account?{" "}
+                <Text
+                  style={{
+                    textDecorationLine: "underline",
+                  }}
+                >
+                  Login
+                </Text>
+              </Link>
+            </View>
+          </Form>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -1,8 +1,8 @@
 import axios from "axios";
 import { url } from "../config/url";
 import {
-    USER_CREATE_FAIL,
-    USER_CREATE_REQUEST,
+  USER_CREATE_FAIL,
+  USER_CREATE_REQUEST,
   USER_CREATE_SUCCESS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
@@ -11,6 +11,7 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
+  USER_UPDATE_FAIL,
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
 } from "../constants/userConstants";
@@ -45,7 +46,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_LOGOUT });
 };
 
-export const register = (name, password, role) => async (dispatch) => {
+export const register = (user) => async (dispatch) => {
   try {
     dispatch({
       type: USER_CREATE_REQUEST,
@@ -55,11 +56,7 @@ export const register = (name, password, role) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.post(
-      `${url}/users`,
-      { name, password, role },
-      config
-    );
+    const { data } = await axios.post(`${url}/users`, user, config);
     dispatch({
       type: USER_CREATE_SUCCESS,
       payload: data,

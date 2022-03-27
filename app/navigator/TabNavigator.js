@@ -3,6 +3,9 @@ import { useTheme } from "react-native-paper";
 import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
 
 import HomeScreen from "../screens/HomeScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import { theme } from "../config/theme";
+import FeedNav from "./FeedNavigator";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -10,18 +13,34 @@ export default function MyTabs() {
   const { colors } = useTheme();
   return (
     <Tab.Navigator
-      initialRouteName="Feed"
+      initialRouteName="myhome"
       activeColor={colors.accent}
       inactiveColor={colors.primary}
       barStyle={{ backgroundColor: colors.background }}
+      theme={theme}
     >
       <Tab.Screen
-        name="home"
+        name="myhome"
         component={HomeScreen}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
             <Entypo name="home" size={24} color={color} />
+          ),
+        }}
+      />
+     
+      <Tab.Screen
+        name="profile"
+        component={FeedNav}
+        options={{
+          tabBarLabel: "Profile",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="account-cog"
+              size={24}
+              color={color}
+            />
           ),
         }}
       />

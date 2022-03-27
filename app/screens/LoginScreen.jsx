@@ -7,8 +7,11 @@ import Form from "../components/form/Form";
 import InputComponent from "../components/form/InputComponent";
 import DropDownComponent from "./DropDownComponent";
 import { roles } from "../data/data";
-import { Link } from "@react-navigation/native";
+import { Link, useNavigation } from "@react-navigation/native";
 import SubmitButton from "../components/form/SubmitButton";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { login } from "../actions/userActions";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -19,14 +22,31 @@ const validationSchema = Yup.object().shape({
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
-
 });
 
 const LoginScreen = () => {
   const { colors } = useTheme();
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo, success, error } = userLogin;
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (success) {
+      navigation.navigate("home");
+      dispatch({
+        type: USER_CREATE_RESET,
+      });
+    }
+    if (error) {
+      alert(error);
+    }
+  }, [success, navigation, dispatch, error]);
 
   const handleSubmit = async ({ name, password, role }) => {
-    console.log(`name: ${name}, password: ${password}, role: ${role}`);
+    dispatch(login({ name, password }));
   };
   return (
     <SafeAreaView
@@ -45,74 +65,76 @@ const LoginScreen = () => {
           }}
         />
       </Appbar>
-      <View
-        style={{
-          flex: 1,
-        }}
-      >
-        <>
-          <Image
-            source={require("../assets/undraw_Account_re_o7id.png")}
-            style={{
-              width: "90%",
-              height: 300,
-              alignSelf: "center",
-              resizeMode: "contain",
-              borderRadius: 10,
-            }}
-          />
-          <Form
-            initialValues={{
-              name: "",
-              password: "",
-              role: "",
-            }}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
-            <View
+      <ScrollView>
+        <View
+          style={{
+            flex: 1,
+          }}
+        >
+          <>
+            <Image
+              source={require("../assets/undraw_Account_re_o7id.png")}
               style={{
-                flex: 1,
-                padding: 10,
+                width: "90%",
+                height: 300,
+                alignSelf: "center",
+                resizeMode: "contain",
+                borderRadius: 10,
               }}
+            />
+            <Form
+              initialValues={{
+                name: "",
+                password: "",
+                role: "",
+              }}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
             >
-              <InputComponent
-                label={"name"}
-                keyboardType={"default"}
-                secureTextEntry={false}
-              />
-              <InputComponent label={"password"} keyboardType={"default"} />
-              <SubmitButton
-                color={colors.accent}
-                textColor={colors.primary}
-                value={"Login"}
-                icon={"login"}
-              />
               <View
                 style={{
-                  marginTop: 10,
+                  flex: 1,
+                  padding: 10,
                 }}
               >
-                <Link
+                <InputComponent
+                  label={"name"}
+                  keyboardType={"default"}
+                  secureTextEntry={false}
+                />
+                <InputComponent label={"password"} keyboardType={"default"} />
+                <SubmitButton
+                  color={colors.accent}
+                  textColor={colors.primary}
+                  value={"Login"}
+                  icon={"login"}
+                />
+                <View
                   style={{
-                    color: colors.primary,
+                    marginTop: 10,
                   }}
-                  to={"/signup"}
                 >
-                  Have an account?{" "}
-                  <Text
+                  <Link
                     style={{
-                      textDecorationLine: "underline",
+                      color: colors.primary,
                     }}
+                    to={"/signup"}
                   >
-                    Register
-                  </Text>
-                </Link>
+                    Have an account?{" "}
+                    <Text
+                      style={{
+                        textDecorationLine: "underline",
+                      }}
+                    >
+                      Register
+                    </Text>
+                  </Link>
+                </View>
               </View>
-            </View>
-          </Form>
-        </>
-      </View>
+            </Form>
+          </>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
