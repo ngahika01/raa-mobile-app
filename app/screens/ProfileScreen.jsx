@@ -45,6 +45,7 @@ const ProfileScreen = () => {
         <Card.Content>
           <Headline>Name : {userInfo.name} </Headline>
           <Title>Role : {userInfo.role} </Title>
+          <Title>Phone Number : {userInfo.phoneNumber} </Title>
         </Card.Content>
       </Card>
       {userInfo.role === "mechanic" && (

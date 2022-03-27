@@ -27,6 +27,9 @@ const validationSchema = Yup.object().shape({
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Role is required"),
+  phoneNumber: Yup.string()
+    .required("Phone number is required")
+    .matches(/^[0-9]{10}$/, "Phone number is not valid"),
 });
 
 const RegisterScreen = () => {
@@ -36,31 +39,24 @@ const RegisterScreen = () => {
   const userRegister = useSelector((state) => state.userRegister);
   const { loading, error, userInfo, success } = userRegister;
   const navigation = useNavigation();
+  console.log(success);
 
-  console.log(error);
   useEffect(() => {
-    if (success && userInfo && userInfo.role === "mechanic") {
-      navigation.navigate("shop");
-      dispatch({
-        type: USER_CREATE_RESET,
-      });
-    }
-    if(success && userInfo && userInfo.role === "driver"){
+    if (success) {
       navigation.navigate("home");
       dispatch({
         type: USER_CREATE_RESET,
       });
     }
+  }, [success, navigation, userInfo, dispatch]);
 
-    
-  }, [success, navigation, userInfo]);
-
-  const handleSubmit = async ({ name, password, role }) => {
+  const handleSubmit = async ({ name, password, role, phoneNumber }) => {
     dispatch(
       register({
         name,
         password,
         role,
+        phoneNumber,
       })
     );
   };
@@ -104,6 +100,7 @@ const RegisterScreen = () => {
               name: "",
               password: "",
               role: "",
+              phoneNumber: "",
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
@@ -121,6 +118,11 @@ const RegisterScreen = () => {
               />
               <InputComponent label={"password"} keyboardType={"default"} />
               <DropDownComponent items={roles} label={"role"} />
+              <InputComponent
+                label={"phoneNumber"}
+                keyboardType={"phone-pad"}
+                secureTextEntry={false}
+              />
               <SubmitButton
                 value={`Sign up`}
                 textColor={colors.primary}
