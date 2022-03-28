@@ -11,7 +11,19 @@ import {
   userUpdateReducer,
 } from "./app/reducers/userReducers";
 import { saveLocationReducer } from "./app/reducers/locationReducers";
-import { createShopReducer, deleteShopReducer, getShopDetailsReducer, getShopReducer, updateShopReducer } from "./app/reducers/shopReducers";
+import {
+  createShopReducer,
+  deleteShopReducer,
+  getShopDetailsReducer,
+  getShopReducer,
+  updateShopReducer,
+} from "./app/reducers/shopReducers";
+import {
+  bookingCreateReducer,
+  bookingDeleteReducer,
+  bookingListReducer,
+  bookingUpdateReducer,
+} from "./app/reducers/bookingReducers";
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -23,6 +35,11 @@ const reducer = combineReducers({
   shopUpdate: updateShopReducer,
   shopGet: getShopReducer,
   shopDetails: getShopDetailsReducer,
+  bookingCreate: bookingCreateReducer,
+  bookingUpdate: bookingUpdateReducer,
+  bookingDelete: bookingDeleteReducer,
+  bookingList: bookingListReducer,
+
 });
 const persistConfig = {
   key: "root",
