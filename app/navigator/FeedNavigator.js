@@ -9,6 +9,7 @@ import AuthNav from "./AuthNav";
 import HomeScreen from "../screens/HomeScreen";
 import ShopDetails from "../screens/ShopDetails";
 import AdminScreen from "../screens/AdminScreen";
+import MyShopScreen from "../screens/MyShopScreen";
 
 const Stack = createNativeStackNavigator();
 const FeedNav = () => {
@@ -41,6 +42,11 @@ const FeedNav = () => {
           name="shopdetails"
           options={{ headerShown: false }}
           component={ShopDetails}
+        />
+        <Stack.Screen
+          name="myShops"
+          options={{ headerShown: false }}
+          component={MyShopScreen}
         />
         <Stack.Screen
           name="admin"

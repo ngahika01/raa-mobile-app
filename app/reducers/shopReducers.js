@@ -69,7 +69,7 @@ export const updateShopReducer = (state = {}, action) => {
     case SHOP_UPDATE_FAIL:
       return {
         ...state,
-        loading: false,
+      loading: false,
         error: action.payload,
       };
     case SHOP_UPDATE_RESET:

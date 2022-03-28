@@ -16,6 +16,9 @@ import {
   SHOP_UPDATE_FAIL,
   SHOP_UPDATE_REQUEST,
   SHOP_UPDATE_SUCCESS,
+  SHOP_USER_FAIL,
+  SHOP_USER_REQUEST,
+  SHOP_USER_SUCCESS,
 } from "../constants/shopConstants";
 
 export const createShop = (shop) => async (dispatch, getState) => {
@@ -147,13 +150,42 @@ export const deleteShop = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    await axios.delete(`${url}/shops/${id}`, config);
+    await axios.delete(`${url}/shops/${id}/`, config);
     dispatch({
       type: SHOP_DELETE_SUCCESS,
     });
   } catch (error) {
     dispatch({
       type: SHOP_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getShopByUser = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SHOP_USER_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.get(`${url}/shops/${id}/user/`, config);
+    dispatch({
+      type: SHOP_USER_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SHOP_USER_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -40,7 +40,7 @@ const reducer = combineReducers({
   bookingUpdate: bookingUpdateReducer,
   bookingDelete: bookingDeleteReducer,
   bookingList: bookingListReducer,
-  getShopByUser: getShopByUserReducer,
+  userGetShop: getShopByUserReducer,
 });
 const persistConfig = {
   key: "root",

@@ -2,6 +2,7 @@ import { StyleSheet, View } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
+  Appbar,
   Button,
   Card,
   HelperText,
@@ -63,6 +64,11 @@ const HomeScreen = () => {
         flex: 1,
       }}
     >
+      <Appbar>
+        <Appbar.Content style={{
+          alignItems: "center",
+        }} title="Home" />
+      </Appbar>
       <StatusBar style="dark" />
       <Map>
         {shops &&

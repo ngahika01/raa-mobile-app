@@ -69,6 +69,29 @@ const ProfileScreen = () => {
           right={() => <List.Icon icon="plus" />}
         />
       )}
+
+      <List.Item
+        style={{
+          backgroundColor: colors.accent,
+          margin: 10,
+        }}
+        title="Admin Section"
+        onPress={() => {
+          navigation.navigate("admin");
+        }}
+        right={() => <List.Icon icon="folder" />}
+      />
+      <List.Item
+        style={{
+          backgroundColor: colors.accent,
+          margin: 10,
+        }}
+        title="My Shops"
+        onPress={() => {
+          navigation.navigate("myShops");
+        }}
+        right={() => <List.Icon icon="store" />}
+      />
       <List.Item
         style={{
           backgroundColor: colors.accent,
@@ -83,17 +106,6 @@ const ProfileScreen = () => {
           });
         }}
         right={() => <List.Icon icon="logout" />}
-      />
-      <List.Item
-        style={{
-          backgroundColor: colors.accent,
-          margin: 10,
-        }}
-        title="Admin Section"
-        onPress={() => {
-          navigation.navigate("admin");
-        }}
-        right={() => <List.Icon icon="folder" />}
       />
     </SafeAreaView>
   );
