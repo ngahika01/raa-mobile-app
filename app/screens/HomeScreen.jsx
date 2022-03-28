@@ -69,6 +69,7 @@ const HomeScreen = () => {
           shops.map((shop) => (
             <>
               <Marker
+                image={require("../assets/icons8-mechanic-48.png")}
                 onPress={() => {
                   setItem(shop);
                 }}
@@ -97,9 +98,7 @@ const HomeScreen = () => {
             left: 20,
           }}
         >
-          <HelperText type="error">
-            Click to book appointment now
-          </HelperText>
+          <HelperText type="error">Click to book appointment now</HelperText>
           <Card.Content
             style={{
               display: "flex",
@@ -147,4 +146,3 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({});
- 

@@ -14,6 +14,7 @@ import { saveLocationReducer } from "./app/reducers/locationReducers";
 import {
   createShopReducer,
   deleteShopReducer,
+  getShopByUserReducer,
   getShopDetailsReducer,
   getShopReducer,
   updateShopReducer,
@@ -39,7 +40,7 @@ const reducer = combineReducers({
   bookingUpdate: bookingUpdateReducer,
   bookingDelete: bookingDeleteReducer,
   bookingList: bookingListReducer,
-
+  getShopByUser: getShopByUserReducer,
 });
 const persistConfig = {
   key: "root",

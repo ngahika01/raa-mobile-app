@@ -16,9 +16,7 @@ const Map = ({ children, latD, lngD, datLat, dataLng, ...otherProps }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const locationSave = useSelector((state) => state.locationSave);
-  const {place} = locationSave;
-
-
+  const { place } = locationSave;
 
   // console.log(location);
   const [loc, setLoc] = useState({
@@ -44,7 +42,6 @@ const Map = ({ children, latD, lngD, datLat, dataLng, ...otherProps }) => {
       });
       dispatch(saveLocation(location));
     }
-
 
     if (datLat && dataLng) {
       map?.current?.animateToRegion({

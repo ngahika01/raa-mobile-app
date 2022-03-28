@@ -1,3 +1,4 @@
+import axios from "axios";
 import { url } from "../config/url";
 import {
   BOOKING_CREATE_FAILURE,
@@ -27,7 +28,7 @@ export const createBooking = (booking) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.post(`${url}/books/`, booking, config);
+    const { data } = await axios.post(`${url}/books`, booking, config);
     dispatch({
       type: BOOKING_CREATE_SUCCESS,
       payload: data,
