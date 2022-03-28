@@ -23,6 +23,7 @@ import {
   bookingCreateReducer,
   bookingDeleteReducer,
   bookingListReducer,
+  bookingMyReducer,
   bookingUpdateReducer,
 } from "./app/reducers/bookingReducers";
 const reducer = combineReducers({
@@ -41,6 +42,7 @@ const reducer = combineReducers({
   bookingDelete: bookingDeleteReducer,
   bookingList: bookingListReducer,
   userGetShop: getShopByUserReducer,
+  bookingMy: bookingMyReducer,
 });
 const persistConfig = {
   key: "root",

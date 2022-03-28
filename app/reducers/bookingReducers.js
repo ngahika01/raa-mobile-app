@@ -14,6 +14,9 @@ import {
   BOOKING_LIST_FAIL,
   BOOKING_LIST_REQUEST,
   BOOKING_LIST_SUCCESS,
+  BOOKING_MY_FAIL,
+  BOOKING_MY_REQUEST,
+  BOOKING_MY_SUCCESS,
   BOOKING_UPDATE_FAILURE,
   BOOKING_UPDATE_REQUEST,
   BOOKING_UPDATE_RESET,
@@ -102,7 +105,7 @@ export const bookingDeleteReducer = (state = {}, action) => {
     case BOOKING_DELETE_RESET:
       return {};
   }
-}
+};
 
 export const bookingGetReducer = (state = {}, action) => {
   switch (action.type) {
@@ -130,7 +133,7 @@ export const bookingGetReducer = (state = {}, action) => {
     case BOOKING_GET_RESET:
       return {};
   }
-}
+};
 
 export const bookingListReducer = (state = {}, action) => {
   switch (action.type) {
@@ -156,4 +159,29 @@ export const bookingListReducer = (state = {}, action) => {
         error: action.payload,
       };
   }
-}
+};
+export const bookingMyReducer = (state = {}, action) => {
+  switch (action.type) {
+    case BOOKING_MY_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case BOOKING_MY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        bookings: action.payload,
+      };
+    default:
+      return state;
+
+    case BOOKING_MY_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+  }
+};

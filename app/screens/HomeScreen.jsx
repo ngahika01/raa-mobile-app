@@ -92,7 +92,12 @@ const HomeScreen = () => {
       </Map>
       {item && (
         <Card
-          onPress={() => navigation.navigate("shopDetails", { shop: item })}
+          onPress={() => {
+            if(userInfo.role ==="driver"){
+              navigation.navigate("shopDetails", { shop: item });
+            }
+
+          }}
           style={{
             position: "absolute",
             bottom: 20,

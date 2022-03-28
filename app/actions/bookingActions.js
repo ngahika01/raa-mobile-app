@@ -10,6 +10,9 @@ import {
   BOOKING_LIST_FAIL,
   BOOKING_LIST_REQUEST,
   BOOKING_LIST_SUCCESS,
+  BOOKING_MY_FAIL,
+  BOOKING_MY_REQUEST,
+  BOOKING_MY_SUCCESS,
   BOOKING_UPDATE_FAILURE,
   BOOKING_UPDATE_REQUEST,
   BOOKING_UPDATE_SUCCESS,
@@ -107,30 +110,60 @@ export const updateBooking = (booking) => async (dispatch, getState) => {
 };
 
 export const deleteBooking = (id) => async (dispatch, getState) => {
-    try {
-        dispatch({
-        type: BOOKING_DELETE_REQUEST,
-        });
-        const {
-        userLogin: { userInfo },
-        } = getState();
-        const config = {
-        headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-        },
-        };
-        const { data } = await axios.delete(`${url}/books/${id}`, config);
-        dispatch({
-        type: BOOKING_DELETE_SUCCESS,
-        payload: data,
-        });
-    } catch (error) {
-        dispatch({
-        type: BOOKING_DELETE_FAILURE,
-        payload:
-            error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-        });
-    }
-    }
+  try {
+    dispatch({
+      type: BOOKING_DELETE_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.delete(`${url}/books/${id}`, config);
+    dispatch({
+      type: BOOKING_DELETE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: BOOKING_DELETE_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const myBookings = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: BOOKING_MY_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.get(`${url}/books/user${id}/`, config);
+    dispatch({
+      type: BOOKING_MY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: BOOKING_MY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
+

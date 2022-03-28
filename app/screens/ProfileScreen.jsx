@@ -70,27 +70,42 @@ const ProfileScreen = () => {
         />
       )}
 
+      {userInfo && userInfo.isAdmin && (
+        <List.Item
+          style={{
+            backgroundColor: colors.accent,
+            margin: 10,
+          }}
+          title="Admin Section"
+          onPress={() => {
+            navigation.navigate("admin");
+          }}
+          right={() => <List.Icon icon="folder" />}
+        />
+      )}
+      {userInfo && userInfo.isAdmin && (
+        <List.Item
+          style={{
+            backgroundColor: colors.accent,
+            margin: 10,
+          }}
+          title="My Shops"
+          onPress={() => {
+            navigation.navigate("myShops");
+          }}
+          right={() => <List.Icon icon="store" />}
+        />
+      )}
       <List.Item
         style={{
           backgroundColor: colors.accent,
           margin: 10,
         }}
-        title="Admin Section"
+        title="My bookings"
         onPress={() => {
-          navigation.navigate("admin");
+          navigation.navigate("mybooks", { userInfo });
         }}
         right={() => <List.Icon icon="folder" />}
-      />
-      <List.Item
-        style={{
-          backgroundColor: colors.accent,
-          margin: 10,
-        }}
-        title="My Shops"
-        onPress={() => {
-          navigation.navigate("myShops");
-        }}
-        right={() => <List.Icon icon="store" />}
       />
       <List.Item
         style={{
