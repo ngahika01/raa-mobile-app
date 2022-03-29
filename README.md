@@ -2,7 +2,8 @@
 
 ## Description
 
-`raa-mobile-app` is a mobile application for the [RAA](https://raa.ch) platform.
+`raa-mobile-app` is a mobile application for enabling stuck drivers to find mechanics and get their car back to their place.
+
 
 ## Installation
 - `yarn`
@@ -29,3 +30,7 @@ Ensure you have a good internet connection to access the database that is hosted
     The information provided is not guaranteed to be accurate.
     The information provided is not a substitute for professional advice.
     Any illegal use of this information is prohibited.   
+
+    ##Contributors
+    - [@mykesoftware]
+        
