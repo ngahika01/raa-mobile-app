@@ -31,6 +31,6 @@ Ensure you have a good internet connection to access the database that is hosted
     The information provided is not a substitute for professional advice.
     Any illegal use of this information is prohibited.   
 
-    ##Contributors
+## Contributors
     - [@mykesoftware]
         
