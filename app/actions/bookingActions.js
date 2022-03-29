@@ -151,7 +151,7 @@ export const myBookings = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.get(`${url}/books/user${id}/`, config);
+    const { data } = await axios.get(`${url}/books/user/${id}/`, config);
     dispatch({
       type: BOOKING_MY_SUCCESS,
       payload: data,

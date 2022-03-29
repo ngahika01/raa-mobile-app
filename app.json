@@ -10,13 +10,13 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "statusBar": {
-      "style": "light"
-    },
+    
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.mykesoftware.raa"
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
